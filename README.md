@@ -11,9 +11,6 @@ Aplicación web completa con frontend en React + TypeScript, backend en PHP, bas
 
 ### 1. Clonar o ubicarse en el directorio del proyecto
 
-```bash
-cd /home/mquinteror/Documents/libreria_desde_front
-```
 
 ### 2. Construir y levantar los contenedores
 
