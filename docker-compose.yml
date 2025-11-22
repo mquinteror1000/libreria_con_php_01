@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Base de datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: libreria_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: libreria_db
+      MYSQL_USER: libreria_user
+      MYSQL_PASSWORD: libreria_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - libreria_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # phpMyAdmin para administrar la base de datos
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: libreria_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+      UPLOAD_LIMIT: 50M
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - libreria_network
+
+  # Backend PHP
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: libreria_backend
+    restart: always
+    environment:
+      DB_HOST: mysql
+      DB_NAME: libreria_db
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+    ports:
+      - "8000:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - libreria_network
+
+  # Frontend React
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: libreria_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - libreria_network
+
+networks:
+  libreria_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
