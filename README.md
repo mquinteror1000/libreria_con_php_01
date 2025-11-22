@@ -49,8 +49,6 @@ libreria_frontend       Up
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000/api
 - **phpMyAdmin**: http://localhost:8080
-  - Usuario: `root`
-  - Contraseña: `rootpassword`
 
 ## 👥 Usuarios de Prueba
 
