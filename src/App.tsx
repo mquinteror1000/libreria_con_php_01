@@ -62,7 +62,7 @@ interface AppContextType {
   clearCart: () => void;
   orders: Order[];
   createOrder: (items: CartItem[], total: number) => void;
-  updateOrderStatus: (orderId: number, status: Order['status']) => void;
+  updateOrderStatus: (orderId: number, status: Order['status']) => Promise<void>;
   users: User[];
   addUser: (name: string, email: string, password: string) => boolean;
   updateUser: (id: number, updates: Partial<User>) => void;
@@ -821,10 +821,42 @@ export default function App() {
     }
   };
 
-  const updateOrderStatus = (orderId: number, status: Order['status']) => {
-    setOrders(orders.map(order => 
-      order.id === orderId ? { ...order, status } : order
-    ));
+  const updateOrderStatus = async (orderId: number, status: Order['status']) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/orders/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status })
+      });
+
+      if (!response.ok) {
+        toast.error('Error al actualizar el estado del pedido', {
+          duration: 3000,
+        });
+        return;
+      }
+
+      // Actualizar el estado local solo si la API respondió exitosamente
+      setOrders(orders.map(order =>
+        order.id === orderId ? { ...order, status } : order
+      ));
+
+      toast.success('Estado del pedido actualizado correctamente', {
+        duration: 3000,
+        style: {
+          background: '#8B5F7D',
+          color: 'white',
+          border: '2px solid #00BCD4'
+        }
+      });
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      toast.error('Error al actualizar el estado del pedido', {
+        duration: 3000,
+      });
+    }
   };
 
   const addUser = (name: string, email: string, password: string): boolean => {
