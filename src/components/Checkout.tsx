@@ -13,6 +13,7 @@ interface CheckoutProps {
 export function Checkout({ setCurrentPage }: CheckoutProps) {
   const { cart, clearCart, createOrder, user } = useApp();
   const [step, setStep] = useState<'form' | 'success'>('form');
+  const [orderTotal, setOrderTotal] = useState(0);
   const [formData, setFormData] = useState({
     fullName: user?.name || '',
     email: user?.email || '',
@@ -39,13 +40,16 @@ export function Checkout({ setCurrentPage }: CheckoutProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Guardar el total antes de limpiar el carrito
+    setOrderTotal(total);
+
     // Crear la orden
     createOrder(cart, total);
-    
+
     // Limpiar el carrito
     clearCart();
-    
+
     // Mostrar pantalla de éxito
     setStep('success');
   };
@@ -61,7 +65,7 @@ export function Checkout({ setCurrentPage }: CheckoutProps) {
               Gracias por tu compra. Recibirás un correo de confirmación en breve.
             </p>
             <div className="bg-[#E8B4D4]/30 rounded-lg p-6 mb-6 max-w-md mx-auto">
-              <p className="mb-2">Total pagado: <span className="text-[#8B5F7D]">${total.toFixed(2)}</span></p>
+              <p className="mb-2">Total pagado: <span className="text-[#8B5F7D]">${orderTotal.toFixed(2)}</span></p>
               <p className="text-sm text-gray-600">Tu pedido será procesado en las próximas 24-48 horas</p>
             </div>
             <div className="flex gap-4 justify-center flex-wrap">
