@@ -1,6 +1,6 @@
 import { ShoppingCart, User, LogOut, Package, Users } from 'lucide-react';
 import { useApp } from '../App';
-import logo from '../assets/950c70056b496fa08a2d351bfbf964e79bfc83d2.png';
+import logo from '../assets/cabecera.png';
 
 interface HeaderProps {
   currentPage: string;
