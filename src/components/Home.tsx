@@ -1,6 +1,6 @@
 import { useApp } from '../App';
 import { Button } from './ui/button';
-import owlImage from '../assets/950c70056b496fa08a2d351bfbf964e79bfc83d2.png';
+import owlImage from '../assets/logo.png';
 
 interface HomeProps {
   setCurrentPage: (page: any) => void;
