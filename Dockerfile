@@ -3,6 +3,9 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Argumento para la URL de la API
+ARG VITE_API_URL=http://localhost:8000
+
 # Copiar package.json y package-lock.json (si existe)
 COPY package*.json ./
 
@@ -12,7 +15,8 @@ RUN npm install
 # Copiar el resto del código fuente
 COPY . .
 
-# Build de la aplicación
+# Build de la aplicación con la URL de la API
+ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
 # Stage 2: Servir con nginx
