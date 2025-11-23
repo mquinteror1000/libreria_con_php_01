@@ -2,6 +2,12 @@
 
 Aplicación web completa con frontend en React + TypeScript, backend en PHP, base de datos MySQL y phpMyAdmin para administración. Todo desplegado con Docker.
 Para sistemas distribuidos
+## Estado de la app
+
+### Funciona bien en local, pero en un server remoto da problemas todavia
+### Pendientes
+- Que funcione bien en remoto
+- Que el header de la aplicacón web se vea mejor
 
 ## Integrantes
 - G. M. Mariana
