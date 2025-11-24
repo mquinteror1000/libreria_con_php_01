@@ -95,7 +95,7 @@ export function AdminCatalog() {
               Agregar Nuevo Libro
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
             <DialogHeader>
               <DialogTitle className="text-[#8B5F7D]">Agregar Nuevo Libro</DialogTitle>
             </DialogHeader>
@@ -258,7 +258,7 @@ export function AdminCatalog() {
                       Editar
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
                     <DialogHeader>
                       <DialogTitle className="text-[#8B5F7D]">Editar Libro</DialogTitle>
                     </DialogHeader>
