@@ -200,7 +200,7 @@ export default function App() {
     const loadUserCart = async () => {
       if (user) {
         try {
-          const response = await fetch(`http://localhost:8000/api/cart/${user.id}`);
+          const response = await fetch(`/api/cart/${user.id}`);
           if (response.ok) {
             const data = await response.json();
             const cartItems: CartItem[] = data.map((item: any) => ({
@@ -233,7 +233,7 @@ export default function App() {
   useEffect(() => {
     const loadBooks = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/books');
+        const response = await fetch('/api/books');
         if (response.ok) {
           const data = await response.json();
           const booksFromDB: Book[] = data.map((book: any) => ({
@@ -260,7 +260,7 @@ export default function App() {
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/users');
+        const response = await fetch('/api/users');
         if (response.ok) {
           const data = await response.json();
           const usersFromDB: User[] = data.map((u: any) => ({
@@ -283,7 +283,7 @@ export default function App() {
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/orders');
+        const response = await fetch('/api/orders');
         if (response.ok) {
           const data = await response.json();
           const ordersFromDB: Order[] = data.map((order: any) => ({
@@ -320,7 +320,7 @@ export default function App() {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -375,7 +375,7 @@ export default function App() {
 
   const register = async (name: string, email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -436,7 +436,7 @@ export default function App() {
 
   const addBook = async (book: Omit<Book, 'id'>) => {
     try {
-      const response = await fetch('http://localhost:8000/api/books', {
+      const response = await fetch('/api/books', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -495,7 +495,7 @@ export default function App() {
       const bookToUpdate = books.find(b => b.id === id);
       if (!bookToUpdate) return;
 
-      const response = await fetch(`http://localhost:8000/api/books/${id}`, {
+      const response = await fetch(`/api/books/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -537,7 +537,7 @@ export default function App() {
 
   const deleteBook = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/books/${id}`, {
+      const response = await fetch(`/api/books/${id}`, {
         method: 'DELETE',
       });
 
@@ -567,7 +567,7 @@ export default function App() {
     if (!user) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/cart/${user.id}`);
+      const response = await fetch(`/api/cart/${user.id}`);
       if (!response.ok) {
         throw new Error('Error al cargar el carrito');
       }
@@ -604,7 +604,7 @@ export default function App() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/cart', {
+      const response = await fetch('/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -664,12 +664,12 @@ export default function App() {
       if (!cartItem) return;
 
       // Necesitamos obtener el cart_item_id del backend
-      const cartResponse = await fetch(`http://localhost:8000/api/cart/${user.id}`);
+      const cartResponse = await fetch(`/api/cart/${user.id}`);
       const cartData = await cartResponse.json();
       const backendItem = cartData.find((item: any) => item.book.id === bookId);
 
       if (backendItem) {
-        const response = await fetch(`http://localhost:8000/api/cart/${backendItem.id}`, {
+        const response = await fetch(`/api/cart/${backendItem.id}`, {
           method: 'DELETE',
         });
 
@@ -706,12 +706,12 @@ export default function App() {
 
     try {
       // Obtener el cart_item_id del backend
-      const cartResponse = await fetch(`http://localhost:8000/api/cart/${user.id}`);
+      const cartResponse = await fetch(`/api/cart/${user.id}`);
       const cartData = await cartResponse.json();
       const backendItem = cartData.find((item: any) => item.book.id === bookId);
 
       if (backendItem) {
-        const response = await fetch(`http://localhost:8000/api/cart/${backendItem.id}`, {
+        const response = await fetch(`/api/cart/${backendItem.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -739,7 +739,7 @@ export default function App() {
     if (!user) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/cart/user/${user.id}`, {
+      const response = await fetch(`/api/cart/user/${user.id}`, {
         method: 'DELETE',
       });
 
@@ -761,7 +761,7 @@ export default function App() {
 
     try {
       // Crear orden en el backend
-      const response = await fetch('http://localhost:8000/api/orders', {
+      const response = await fetch('/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -823,7 +823,7 @@ export default function App() {
 
   const updateOrderStatus = async (orderId: number, status: Order['status']) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/orders/${orderId}`, {
+      const response = await fetch(`/api/orders/${orderId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
