@@ -7,7 +7,6 @@ Para sistemas distribuidos
 ### Funciona bien en local, pero en un server remoto da problemas todavia
 ### Pendientes
 - Que funcione bien en remoto
-- Que el header de la aplicacón web se vea mejor
 
 ## Integrantes
 - G. M. Mariana
@@ -29,15 +28,10 @@ Para sistemas distribuidos
 ### 2. Construir y levantar los contenedores
 
 ```bash
-docker-compose up -d --build
+docker compose build --no-cache
+
+docker compose up -d 
 ```
-
-Este comando levantará 4 servicios:
-
-- **MySQL** (Puerto 3306): Base de datos
-- **phpMyAdmin** (Puerto 8080): Administrador de base de datos
-- **Backend PHP** (Puerto 8000): API REST
-- **Frontend React** (Puerto 3000): Aplicación web
 
 ### 3. Verificar que los servicios estén funcionando
 
@@ -51,8 +45,7 @@ docker-compose ps
 - **Backend API**: http://localhost:8000/api
 - **phpMyAdmin**: http://localhost:8080
 
-## 👥 Usuarios de Prueba
-
+## Usuarios de prueba
 
 ### Administrador
 - Email: `admin@nidoliterario.com`
